@@ -7,7 +7,6 @@
 using namespace std;
 
 #define LDA 100
-
 extern "C" {
 void dgemv_(char&, int&, int&, double&, double [][LDA], int&, 
             double [], int&, double&, double [], int&);
@@ -17,6 +16,9 @@ double ddot_(int&, double [], int&, double [], int&);
 double dasum_(int&, double [], int&);
 double dnrm2_(int&, double [], int&);
 int idamax_(int&, double [], int&);
+void dgefa_(double [][LDA], int&, int&, int [], int&);
+void dgesl_(double [][LDA], int&, int&, int [], double [], int&);
+
 }
            
 main(void) 
@@ -155,3 +157,5 @@ main(void)
           "\n" << endl;
 
 }
+
+

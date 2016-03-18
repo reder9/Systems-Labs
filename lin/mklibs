@@ -1,0 +1,38 @@
+#!/bin/bash
+
+#FC=g77
+FC=gfortran
+FFLAGS=-O
+AR="ar r"
+
+LIB=liblibs.a
+
+for i in blas/*.f
+do
+  echo "$FC $FFLAGS -c $i"
+  $FC $FFLAGS -c $i
+  base=`basename $i .f`
+  echo "$AR $LIB $base.o"
+  $AR $LIB $base.o
+  echo "rm $base.o"
+  rm $base.o
+  echo
+done
+
+for i in linpack/*.f
+do
+  echo "$FC $FFLAGS -c $i"
+  $FC $FFLAGS -c $i
+  base=`basename $i .f`
+  echo "$AR $LIB $base.o"
+  $AR $LIB $base.o
+  echo "rm $base.o"
+  rm $base.o
+  echo
+done
+
+echo "archive $LIB built"
+echo
+
+
+

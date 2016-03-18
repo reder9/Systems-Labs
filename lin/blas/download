@@ -1,0 +1,39 @@
+<?php
+    require 'pathinfo.inc';
+
+//    $filename = $PATH_VARS['filename'];
+//    $filename = $_GET['filename'];
+    $filename = $PATH;
+	        
+    //Crude cleansing to avoid ../../../../etc/passwd hacks
+    //In an ideal world, you would have a specific range of legal values for $filename
+    //And your cleansing would test positive only for valid input
+    $filename = basename($filename);
+				    
+    //if ($filename != 'iwant.xyz') die("Did you really think I wouldn't add filename validation here?");
+//    if ($filename != 'euler.m') die("Did you really think I wouldn't add filename validation here?");
+					    
+    //I can virtually guarantee that the next line is not correct.  Fix it.
+    //I personally would recommend that it NOT be in your webtree,
+    //so Bad Guys (tm) cannot bypass your application and just get it direct.
+    //If your webhost does not provide a non-web-tree directory, find a new host.
+    //This should be the complete full path to the "real" iwant.xyz file.
+    $basename = 'http://www.d.umn.edu/~strogdon/5840/blas/blas/';
+//    $basename = 'euler.m';
+								        
+    //Compose the actual full file path:
+    //If you didn't put / at the end of $basename, add it here
+    $fullname = "$basename$filename";
+										        
+    //For larger files, a decent browser can provide progress meter, if you do this:
+    //$filesize = filesize($fullname);
+    //header("Content-length: $filesize");
+									        
+    //As discussed above, the only Documented Feature,
+    //sure-fire guaranteed way to force a download every time is:
+    header("Content-type: text/plain");
+					        
+    //Now just read the file:
+    readfile($fullname);
+    //For large files, an fopen/fread loop using feof may be more appropriate
+?>
