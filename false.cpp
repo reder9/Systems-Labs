@@ -6,58 +6,58 @@ using namespace std;
 
 double f(double x);
 bool closerLimit(double u, double l);
-double iteration(double u, double l);
+double falsePosition(double u, double l);
 const double E = pow(10,-5);
 
 
-int main()
-{   
+int main() {   
 cout.precision(17);
-std::cout << std::fixed;
+ cout <<  fixed;
 
 
 
-    std::cout << "Enter the First Limit: " << std::endl;
+     cout << "Enter the First Limit: " <<  endl;
     double x1;
-    std::cin >> x1;
+     cin >> x1;
 
-    std::cout << "Enter The Second Limit: " << std::endl;
+     cout << "Enter The Second Limit: " <<  endl;
     double x2;
-    std::cin >> x2;
+     cin >> x2;
 
-    std::cout << "\nThe root = " << iteration(x1,x2) << std::endl;
+	cout << "n \t         c \t\t       lambda n \n";
+	cout << "__________________________________________________\n";
+     cout << "\nThe root = " << falsePosition(x1,x2) <<  endl;
 
 }
 
-double f(double x)
-{
+double f(double x) {
   return 1 + .3 * cos(x) - x;
 }
 
-// Evaluating the closer limit to the root
-// to make sure that the closer limit is the
-// one that moves and the other one is fixed
 
-inline bool closerlimit(double u, double l)
+double falsePosition(double u, double l)
 {
-  return fabs(f(u)) > fabs(f(l));
-}
 
-double iteration(double u, double l)
-{
 	double s = u - ((f(u)*(l-u)) / (f(l)-f(u)));
 	int n = 0;
+	float lambda = 0;
 
-	while ( abs(s-u) > E && abs(l-s) > E){
+	while ( abs(s-u) > E && abs(s-l) > E){
 	n++;
-	cout << n << "\t" << s << endl;
-      if (closerlimit(u,l)){
-        l = s;
+
+	if (f(s) * f(l) < 0){  
+
+	lambda =  abs(u-s);
+	      u = s;
 	}
 
       else {
-        u = s;
- 	 }
+
+	lambda =  abs(u-l);
+        l = s;
+	 }
+
+	cout << n << "\t" << s << "\t" << lambda << endl;
 
 	s = u - ((f(u)*(l-u)) / (f(l)-f(u)));
 	}
