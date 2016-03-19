@@ -19,7 +19,7 @@ main(void)
 {
 
   int ipvt[500];
-  int n, info, job, lda;
+  int n = 500, info, job, lda;
   int fsf;
 
   double a[500][LDA];
@@ -34,16 +34,18 @@ main(void)
   lda=LDA;
   job=0;
 
-  fsf = fscanf(fpin, "%d", &n);
+//  fsf = fscanf(fpin, "%d", &n);
 
   for(i = 0; i <= n - 1; ++i){
     for(j = 0; j <= n - 1; ++j){
-      fsf = fscanf(fpin, "%lf", &a[i][j]);
-    }
+      //fsf = fscanf(fpin, "%lf", &a[i][j]);
+    	a[i][j] = fmax(i+1,j+1);
+	}
   }
 
   for(i = 0; i <= n - 1; ++i) 
-    fsf = fscanf(fpin, "%lf", &b[i]);
+	b[i] = 1.0;
+//    fsf = fscanf(fpin, "%lf", &b[i]);
 
 /*
   n = 3;
@@ -158,4 +160,3 @@ main(void)
   cout << "\n";
 
 }
-
