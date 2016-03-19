@@ -10,6 +10,7 @@
 #include <math.h>
 #include <iostream>
 #include <limits>
+#include <cmath>
 
 using namespace std;
 
@@ -18,7 +19,7 @@ const double e = exp(1.0);
 
 //define error as 10 ^ -5
 const double E = pow(10,-5);
-
+double temp = 0;
 int n = 0;
 
 double f1(double x);
@@ -44,7 +45,7 @@ std::cout << std::fixed;
 double a ,b;
 double tem1,tem2;
 
-cout << "The first equation is e^x - 3x^2 = 0 \n\n";
+cout << "The equation is 1 + .3 cos(x) - x \n\n";
 
 cout << "Enter the value of a (left boundary):\n";
 cin >> a;
@@ -52,7 +53,7 @@ cout << "Enter the value of b (right boundary):\n";
 cin >> b;
 
 cout << "Below is a table of the values computed from using the Bisection Method on equation 1:\n\n";
-cout <<"n\t\ta\t\t\tb\t\t\tc\t\t\tf(a)\t\t\tf(b)\t\t\tf(c) " << endl;
+cout <<"n\t\tcn\t\t\ten\t\t\ten + cn\t\t\tlambda n  \n";
 cout << "________________________________________________________________________________________________________________________________________________________\n";
 
 cout << "\nThe root of equation 1 in the interval [" << a << "," << b<< "] is: " << bisect1(a,b,0,E) << "\n\n";
@@ -70,8 +71,11 @@ double bisect1(double a, double b, double root, double err){
 
 double c = (a+b) /2.0;
 
-cout << n << "\t" << a << "\t" << b << "\t" << c << "\t" << f1(a) << "\t"
-	<< f1(b) << "\t" << f1(c) << endl;
+double en = abs(b-c);
+double lambda = c + ( en * c - temp) / (1-en);
+cout << n << "\t" << c << "\t" << lambda << "\t" << lambda + c << "\t"  << abs(b-c) << endl;
+
+
 
 if ((b -c) < err){
 	root = c;
@@ -92,6 +96,7 @@ b = c;
 
 }
 
+temp = c;
 n++;
 return bisect1(a,b,root,err);
 
